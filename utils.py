@@ -69,7 +69,7 @@ def setup_seed(seed):
     random.seed(seed)
     torch.backends.cudnn.deterministic = True
 
-def ntk(model, x_i, y_i, x, y, window_length,loss_fn=nn.MSELoss(),batch_size=512):
+def ntk(model, x_i, y_i, x, y, window_length=24,loss_fn=nn.MSELoss(),batch_size=512):
     def fnet_single(params, x):
         return fnet(params, x.unsqueeze(0)).squeeze(0)
     def empirical_ntk(fnet_single, params, x2):
@@ -146,7 +146,7 @@ def compute_phi_trace(model, xx, yy, x,y, learning_rate, epochs,train_criterion,
     
             loss_i = loss_function(y_i_pred, y_i.reshape(-1))
 
-            local_importance = ntk(model, x_i,y_i, x,y)
+            local_importance = ntk(model,x_i,y_i, x,y,window_length)
     
             global_importance = my_get_yh_v_product(model, x_i,y_i,local_importance.reshape(-1),loss_fn=train_criterion)
 
@@ -164,3 +164,70 @@ def compute_phi_trace(model, xx, yy, x,y, learning_rate, epochs,train_criterion,
 def create_directory_if_not_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
+
+
+class dataset(Dataset):
+    def __init__(self, data ,label):
+
+        self.seq = data
+        self.label = label
+        
+
+    def __getitem__(self, idx):
+        
+        data_idx = torch.Tensor(self.seq[idx])
+        label_idx = torch.Tensor(self.label[idx])
+        return data_idx, label_idx
+
+    def __len__(self):
+
+        return len(self.seq)
+
+def train_model(model,train_data,train_label,val_data,val_label,epochs = 300,lr= 0.1,batch_size=64,loss_function=nn.MSELoss()):
+    X = torch.Tensor(train_data).to(device)
+    y = torch.Tensor(train_label).to(device)
+    val_X = torch.Tensor(val_data).to(device)
+    val_y = torch.Tensor(val_label).to(device)
+    trainset = dataset(X,y)
+    valset = dataset(val_X,val_y)
+    train_loader = DataLoader(trainset, shuffle=False, batch_size=batch_size)
+    val_loader = DataLoader(valset, shuffle=False, batch_size=batch_size)
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+    loss_min = np.inf
+    count = 0
+    for i in range(epochs):
+        losses = []
+        for (data,label) in train_loader:
+            input_seq = data.to(device)
+            label = label.to(device)
+            mu = model(input_seq)
+            loss = loss_function(label.reshape(-1),mu.reshape(-1))
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+        for (data,label) in val_loader:
+            input_seq = data.to(device)
+            label = label.to(device)
+            with torch.no_grad():
+                mu = model(input_seq)
+            loss = loss_function(label.reshape(-1),mu.reshape(-1))
+            if loss<=loss_min:
+                count = 0
+                loss_min = loss
+            else:
+                count = count+1
+        if count>=10:
+            break
+
+    return(model)
+
+
+def test_model(model,test_data,test_label):
+    with torch.no_grad():
+        y_pred = model(torch.Tensor(test_data).to(device))
+    # Convert PyTorch tensors to NumPy arrays
+    x_test_np = test_data
+    y_test_np = test_label
+    y_pred_np = y_pred.cpu().numpy()
+    result = MSE(y_test_np.reshape(-1),y_pred_np.reshape(-1))
+    return result
