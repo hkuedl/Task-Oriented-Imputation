@@ -16,7 +16,7 @@ Users can run main.py to get the result shown in the paper. Note that the code c
 python main.py
 ~~~
 
-## Applying acceleration method
+## Apply acceleration method
 
 To use the acceleration method mentioned in the paper, users need to replace the 
 ```python
