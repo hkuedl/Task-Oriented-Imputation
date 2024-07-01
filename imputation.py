@@ -21,8 +21,8 @@ def random_subarray(array, period=24):
     num_to_select = int(length * 0.4)
     selected_length = 0
 
-    replaced_indices = []  # 添加一个列表来存储替换的索引
-    replaced_intervals = []  # 添加一个列表来存储替换的区间
+    replaced_indices = []  
+    replaced_intervals = []  
 
     while selected_length < num_to_select:
         period_lengths = [period // 10, period // 4, period // 5, period // 2, period, period * 2, period * 4, period * 5]
@@ -34,7 +34,6 @@ def random_subarray(array, period=24):
         start_idx = random.randint(0, length - subarray_length)
         end_idx = start_idx + subarray_length - 1
 
-        # 检查所选区间是否与现有区间重叠
         overlapping = False
         for interval in replaced_intervals:
             if (start_idx >= interval[0] and start_idx <= interval[1]) or (end_idx >= interval[0] and end_idx <= interval[1]):
@@ -42,20 +41,20 @@ def random_subarray(array, period=24):
                 break
 
         if overlapping:
-            continue  # 如果重叠，跳过当前迭代
+            continue  
 
         array1[start_idx:end_idx + 1] = np.mean(array[start_idx:end_idx + 1])
         array2[start_idx:end_idx + 1] = np.nan
 
-        replaced_indices.extend(range(start_idx, end_idx + 1))  # 将替换的索引添加到列表中
-        replaced_intervals.append((start_idx, end_idx))  # 将替换的区间添加到列表中
+        replaced_indices.extend(range(start_idx, end_idx + 1))  
+        replaced_intervals.append((start_idx, end_idx))  
 
         selected_length += subarray_length
 
-    return array1, array2, replaced_indices  # 返回修改后的数组以及替换索引的列表
+    return array1, array2, replaced_indices  
 def replace_nan_with_array(array1, array2):
     if array1.shape != array2.shape:
-        raise ValueError("两个数组的形状必须相同。")
+        raise ValueError("error")
 
     result_array = np.copy(array1)
     nan_indices = np.isnan(array1)
