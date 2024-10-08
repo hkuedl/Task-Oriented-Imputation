@@ -1,5 +1,7 @@
 # Task-oriented-imputation
-This repo is the Pytorch implementation of our accepted paper to NeurIPS 2024: Task-oriented Time Series Imputation Evaluation via Generalized Representers.
+This repo is the Pytorch implementation of our accepted paper to NeurIPS 2024: "Task-oriented Time Series Imputation Evaluation via Generalized Representers."
+
+Authors: Zhixian Wang, Linxiao Yang, Liang Sun, Qingsong Wen, and Yi Wang.
 
 ## Apply time series imputation
 Users can directly run imputation.py to get the imputation result. To get the result shown in the paper, users need to change two parameters to change the data used like this.
