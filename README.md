@@ -1,7 +1,21 @@
-# Task-oriented-imputation
-This repo is the Pytorch implementation of our accepted paper to NeurIPS 2024: "Task-oriented Time Series Imputation Evaluation via Generalized Representers."
+# (NeurIPS 2024) Task-oriented Time Series Imputation Evaluation via Generalized Representers
+This repo is the Pytorch implementation of our NeurIPS'24 paper:
+- Zhixian Wang, Linxiao Yang, Liang Sun, Qingsong Wen*, Yi Wang*, "Task-oriented Time Series Imputation Evaluation via Generalized Representers," in 38th Annual Conference on Neural Information Processing Systems (NeurIPS 2024), Vancouver, Canada, Dec. 2024.
 
-Authors: Zhixian Wang, Linxiao Yang, Liang Sun, Qingsong Wen, and Yi Wang.
+## Citation
+> 🌟 If you find this resource helpful, please consider to star this repository and cite our research:
+
+```tex
+@inproceedings{fang2024tsi,
+      title={Task-oriented Time Series Imputation Evaluation via Generalized Representers}, 
+      author={Zhixian Wang and Linxiao Yang and Liang Sun and Qingsong Wen and Yi Wang},
+      booktitle={Thirty-Eighth Conference on Neural Information Processing Systems (NeurIPS)},
+      year={2024}
+}
+```
+In case of any questions, bugs, suggestions or improvements, please feel free to open an issue.
+
+
 
 ## Apply time series imputation
 Users can directly run imputation.py to get the imputation result. To get the result shown in the paper, users need to change two parameters to change the data used like this.
@@ -29,3 +43,14 @@ with
 phi_trace,model = compute_phi_trace_fast(model, torch.Tensor(train_data), torch.Tensor(train_label), torch.Tensor(test_data), torch.Tensor(test_label), learning_rate, epochs,train_criterion = nn.MSELoss(),device=device,num_segments = num_segments)
 ```
 Users need to define num_segments to decide how many segments to divide the time series (default setting to 4).
+
+
+## Further Reading
+1, Deep Learning for Multivariate Time Series Imputation: A Survey, in *arXiv* 2024. 
+[\[paper\]](https://arxiv.org/abs/2402.04059) [\[Website\]](https://github.com/wenjiedu/awesome_imputation)
+
+2, TSI-Bench: Benchmarking Time Series Imputation, in *arXiv* 2024. 
+[\[paper\]](https://arxiv.org/abs/2406.12747) [\[Website\]](https://github.com/wenjiedu/awesome_imputation)
+
+3, AI for Time Series (AI4TS) Papers, Tutorials, and Surveys. 
+[\[Website\]](https://github.com/qingsongedu/awesome-AI-for-time-series-papers)
