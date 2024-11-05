@@ -44,6 +44,9 @@ phi_trace,model = compute_phi_trace_fast(model, torch.Tensor(train_data), torch.
 ```
 Users need to define num_segments to decide how many segments to divide the time series (default setting to 4).
 
+## Acknowledgement
+
+We appreciate the following GitHub [\[repo\]](https://github.com/WenjieDu/PyPOTS) for providing the code.
 
 ## Further Reading
 1, Deep Learning for Multivariate Time Series Imputation: A Survey, in *arXiv* 2024. 
