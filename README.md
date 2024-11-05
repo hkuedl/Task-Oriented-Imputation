@@ -46,7 +46,7 @@ Users need to define num_segments to decide how many segments to divide the time
 
 ## Acknowledgement
 
-We appreciate the following GitHub [\[repo\]](https://github.com/WenjieDu/PyPOTS) for providing the code.
+We appreciate the following [\[PyPOTS repo\]](https://github.com/WenjieDu/PyPOTS) for providing the code.
 
 ## Further Reading
 1, Deep Learning for Multivariate Time Series Imputation: A Survey, in *arXiv* 2024. 
