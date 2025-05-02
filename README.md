@@ -6,11 +6,13 @@ This repo is the Pytorch implementation of our NeurIPS'24 paper:
 > 🌟 If you find this resource helpful, please consider to star this repository and cite our research:
 
 ```tex
-@inproceedings{fang2024tsi,
-      title={Task-oriented Time Series Imputation Evaluation via Generalized Representers}, 
-      author={Zhixian Wang and Linxiao Yang and Liang Sun and Qingsong Wen and Yi Wang},
-      booktitle={Thirty-Eighth Conference on Neural Information Processing Systems (NeurIPS)},
-      year={2024}
+@article{wang2024task,
+  title={Task-oriented Time Series Imputation Evaluation via Generalized Representers},
+  author={Wang, Zhixian and Yang, Linxiao and Sun, Liang and Wen, Qingsong and Wang, Yi},
+  journal={Advances in Neural Information Processing Systems},
+  volume={37},
+  pages={137403--137431},
+  year={2024}
 }
 ```
 In case of any questions, bugs, suggestions or improvements, please feel free to open an issue.
