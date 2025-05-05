@@ -56,8 +56,8 @@ def main(args):
     model = DLinear(seq_len,pred_len).to(device)
     train_data = np.load('./imputated_folder/'+name+'/train_data_mean.npy')
     train_label = np.load('./imputated_folder/'+name+'/train_label_mean.npy')
-    val_data = np.load('./imputated_folder/'+name+'/val_data_mean.npy')
-    val_label = np.load('./imputated_folder/'+name+'/val_label_mean.npy')
+    val_data = np.load('./imputated_folder/'+name+'/val_data.npy')
+    val_label = np.load('./imputated_folder/'+name+'/val_label.npy')
     test_data = np.load('./imputated_folder/'+name+'/test_data.npy')
     test_label = np.load('./imputated_folder/'+name+'/test_label.npy')
 
