@@ -56,8 +56,10 @@ def main(args):
     model = DLinear(seq_len,pred_len).to(device)
     train_data = np.load('./imputated_folder/'+name+'/train_data_mean.npy')
     train_label = np.load('./imputated_folder/'+name+'/train_label_mean.npy')
-    test_data = np.load('./imputated_folder/'+name+'/val_data.npy')
-    test_label = np.load('./imputated_folder/'+name+'/val_label.npy')
+    val_data = np.load('./imputated_folder/'+name+'/val_data_mean.npy')
+    val_label = np.load('./imputated_folder/'+name+'/val_label_mean.npy')
+    test_data = np.load('./imputated_folder/'+name+'/test_data.npy')
+    test_label = np.load('./imputated_folder/'+name+'/test_label.npy')
 
     create_directory_if_not_exists('./estimation_folder')
     create_directory_if_not_exists('./estimation_folder/'+name)
@@ -65,7 +67,7 @@ def main(args):
     create_directory_if_not_exists('./result_folder')
     create_directory_if_not_exists('./result_folder/'+name)
 
-    phi_trace,model = compute_phi_trace(model, torch.Tensor(train_data), torch.Tensor(train_label), torch.Tensor(test_data), torch.Tensor(test_label), learning_rate, epochs,train_criterion = nn.MSELoss(),device=device)
+    phi_trace,model = compute_phi_trace(model, torch.Tensor(train_data), torch.Tensor(train_label), torch.Tensor(val_data), torch.Tensor(val_label), learning_rate, epochs,train_criterion = nn.MSELoss(),device=device)
     np.save('./estimation_folder/'+name+'/phi_trace_mean.npy',phi_trace)
     result = test_model(model,test_data,test_label)
     result_dict['mean'] = result
